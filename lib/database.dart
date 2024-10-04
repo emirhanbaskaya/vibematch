@@ -7,7 +7,6 @@ class DatabaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Kullanıcıyı e-posta ve şifre ile kaydet
   Future<User?> signUpUser(String email, String password) async {
     try {
       UserCredential userCredential =
@@ -22,7 +21,6 @@ class DatabaseService {
     }
   }
 
-  // Kullanıcıyı e-posta ve şifre ile giriş yap
   Future<User?> loginUser(String email, String password) async {
     try {
       UserCredential userCredential =
@@ -37,7 +35,6 @@ class DatabaseService {
     }
   }
 
-  // Kullanıcı bilgilerini kaydet (ad, doğum tarihi vb.)
   Future<void> saveUserData(
       String uid,
       String firstName,
@@ -57,14 +54,13 @@ class DatabaseService {
     }
   }
 
-  // Spotify tokenlarını ve displayName'i kaydet
   Future<void> saveSpotifyToken(
-      String uid,
+      String userId,
       String accessToken,
       String refreshToken,
       String displayName) async {
     try {
-      await _firestore.collection('spotifyTokens').doc(uid).set({
+      await _firestore.collection('spotifyTokens').doc(userId).set({
         'accessToken': accessToken,
         'refreshToken': refreshToken,
         'displayName': displayName,

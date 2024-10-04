@@ -111,13 +111,13 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
         }
 
         // Spotify kullanıcı profilini al
-        final userProfile =
-        await _fetchSpotifyUserProfile(accessToken);
+        final userProfile = await _fetchSpotifyUserProfile(accessToken);
+        final spotifyUserId = userProfile['id'];
         final displayName = userProfile['display_name'];
 
         // Spotify tokenlarını ve displayName'i kaydet
         await dbService.saveSpotifyToken(
-          currentUser.uid,
+          spotifyUserId,
           accessToken,
           refreshToken,
           displayName,
@@ -138,6 +138,8 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
         'Authorization': 'Bearer $accessToken',
       },
     );
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
