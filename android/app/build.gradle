@@ -1,0 +1,79 @@
+// android/app/build.gradle
+
+plugins {
+    id "com.android.application"
+    // Eğer Kotlin kullanıyorsanız aşağıdaki satırı etkinleştirin
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"  // Firebase Google Services Plugin
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (flutterVersionCode == null) {
+    flutterVersionCode = "1"
+}
+
+def flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (flutterVersionName == null) {
+    flutterVersionName = "1.0"
+}
+
+android {
+    namespace = "com.example.date_app"
+    compileSdk = 34  // Uygun SDK versiyonunuzu seçin
+
+    defaultConfig {
+        applicationId = "com.example.dateapp"
+        minSdk = 23  // Minimum SDK versiyonunuzu seçin
+        targetSdk = 34  // Hedef SDK versiyonu
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Firebase BoM (Bill of Materials) kullanarak Firebase SDK'larını yönetin
+    implementation platform('com.google.firebase:firebase-bom:33.3.0')
+
+    // Firebase Analytics SDK'sı
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // Firebase Authentication SDK'sı
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Firebase Firestore SDK'sı
+    implementation 'com.google.firebase:firebase-firestore'
+
+    // AndroidX Browser Kütüphanesi (url_launcher için)
+    implementation 'androidx.browser:browser:1.5.0'
+
+    // Diğer Firebase SDK'larını ekleyin (ihtiyacınıza göre):
+    // implementation 'com.google.firebase:firebase-database'
+    // implementation 'com.google.firebase:firebase-storage'
+}

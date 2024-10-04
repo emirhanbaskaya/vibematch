@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_web_client_id">147311072076-5bnqneqpnpmamiggdm0mjc37rnc3sr56.apps.googleusercontent.com</string>
+    <string name="firebase_database_url">https://date-application-fdb24-default-rtdb.firebaseio.comL</string>
+</resources>

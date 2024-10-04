@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "147311072076",
+    "project_id": "date-application-fdb24",
+    "storage_bucket": "date-application-fdb24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147311072076:android:556eed92bf4a35617d75e9",
+        "android_client_info": {
+          "package_name": "com.example.dateapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8oPzgL2_KVR7kK4_lYpE7WA-HivCGync"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
