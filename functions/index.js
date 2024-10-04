@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const express = require('express');
 const cors = require('cors');
 const admin = require("firebase-admin");
-const fetch = require('node-fetch'); // node-fetch modülü ekleyin
+const fetch = require('node-fetch');
 
 admin.initializeApp();
 const db = admin.firestore();
