@@ -4,24 +4,20 @@ const cors = require('cors');
 const admin = require("firebase-admin");
 const fetch = require('node-fetch'); // node-fetch modülü ekleyin
 
-// Firebase Admin SDK'yı başlatıyoruz
 admin.initializeApp();
 const db = admin.firestore();
 
-// Express.js uygulamamızı oluşturuyoruz
 const app = express();
 
-// CORS ayarlarını tanımlıyoruz
 const corsOptions = {
   origin: true,
   credentials: true,
 };
 
-app.use(cors(corsOptions)); // CORS orta katmanını ekliyoruz
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Spotify kullanıcı bilgilerini alma fonksiyonu
 async function fetchSpotifyProfile(accessToken) {
   const response = await fetch('https://api.spotify.com/v1/me', {
     method: 'GET',
@@ -37,7 +33,6 @@ async function fetchSpotifyProfile(accessToken) {
   }
 }
 
-// saveSpotifyTokens endpoint'i
 app.post('/saveSpotifyTokens', async (req, res) => {
   const { userId, accessToken, refreshToken } = req.body;
 
@@ -46,10 +41,8 @@ app.post('/saveSpotifyTokens', async (req, res) => {
   }
 
   try {
-    // Spotify API'den kullanıcı bilgilerini alıyoruz
     const spotifyProfile = await fetchSpotifyProfile(accessToken);
 
-    // Tokenları ve Spotify kullanıcı adını Firestore'a kaydet
     await db.collection('spotifyTokens').doc(userId).set({
       accessToken: accessToken,
       refreshToken: refreshToken,
@@ -65,5 +58,5 @@ app.post('/saveSpotifyTokens', async (req, res) => {
   }
 });
 
-// Express uygulamasını tek bir Cloud Function olarak dışa aktarıyoruz
+
 exports.api = functions.https.onRequest(app);
